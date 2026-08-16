@@ -35,3 +35,8 @@ Thumbs.db
 .vscode/*
 !.vscode/extensions.json
 !.vscode/settings.json
+
+# SQLite local database
+*.db
+*.db-shm
+*.db-wal

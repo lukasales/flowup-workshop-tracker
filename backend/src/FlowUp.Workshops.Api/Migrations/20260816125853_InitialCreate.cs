@@ -15,9 +15,9 @@ namespace FlowUp.Workshops.Api.Migrations
                 name: "Colaboradores",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nome = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,11 +28,11 @@ namespace FlowUp.Workshops.Api.Migrations
                 name: "Workshops",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DataRealizacao = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Descricao = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Nome = table.Column<string>(type: "TEXT", nullable: false),
+                    DataRealizacao = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Descricao = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -43,8 +43,8 @@ namespace FlowUp.Workshops.Api.Migrations
                 name: "Participacoes",
                 columns: table => new
                 {
-                    WorkshopId = table.Column<int>(type: "int", nullable: false),
-                    ColaboradorId = table.Column<int>(type: "int", nullable: false)
+                    WorkshopId = table.Column<int>(type: "INTEGER", nullable: false),
+                    ColaboradorId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
