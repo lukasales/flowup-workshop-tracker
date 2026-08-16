@@ -1,11 +1,13 @@
 using FlowUp.Workshops.Api.Data;
 using FlowUp.Workshops.Api.DTOs.Colaboradores;
 using FlowUp.Workshops.Api.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FlowUp.Workshops.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/[controller]")]
 public class ColaboradoresController : ControllerBase
