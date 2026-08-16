@@ -1,0 +1,58 @@
+export const workshopsMock = [
+  {
+    id: 1,
+    nome: 'Clean Code na Prática',
+    dataRealizacao: '2026-01-15T16:00:00',
+    descricao: 'Boas práticas para criação de código legível e de fácil manutenção.',
+    colaboradores: [
+      { id: 1, nome: 'Ana Silva' },
+      { id: 2, nome: 'Bruno Costa' },
+      { id: 3, nome: 'Carla Souza' },
+      { id: 4, nome: 'Daniel Lima' },
+      { id: 5, nome: 'Elisa Martins' },
+      { id: 6, nome: 'Felipe Rocha' },
+    ],
+  },
+  {
+    id: 2,
+    nome: 'APIs REST com ASP.NET Core',
+    dataRealizacao: '2026-04-16T16:00:00',
+    descricao: 'Conceitos e práticas para desenvolvimento de APIs REST com ASP.NET Core.',
+    colaboradores: [
+      { id: 1, nome: 'Ana Silva' },
+      { id: 2, nome: 'Bruno Costa' },
+      { id: 3, nome: 'Carla Souza' },
+      { id: 4, nome: 'Daniel Lima' },
+      { id: 5, nome: 'Elisa Martins' },
+      { id: 7, nome: 'Gabriela Alves' },
+      { id: 8, nome: 'Henrique Santos' },
+    ],
+  },
+  {
+    id: 3,
+    nome: 'Testes Automatizados em Aplicações Web',
+    dataRealizacao: '2026-07-16T16:00:00',
+    descricao: 'Introdução a estratégias de testes automatizados para aplicações web.',
+    colaboradores: [
+      { id: 1, nome: 'Ana Silva' },
+      { id: 2, nome: 'Bruno Costa' },
+      { id: 4, nome: 'Daniel Lima' },
+      { id: 6, nome: 'Felipe Rocha' },
+      { id: 8, nome: 'Henrique Santos' },
+    ],
+  },
+  {
+    id: 4,
+    nome: 'Git e Code Review',
+    dataRealizacao: '2026-10-15T16:00:00',
+    descricao: 'Boas práticas de versionamento, colaboração e revisão de código.',
+    colaboradores: [
+      { id: 1, nome: 'Ana Silva' },
+      { id: 3, nome: 'Carla Souza' },
+      { id: 4, nome: 'Daniel Lima' },
+      { id: 5, nome: 'Elisa Martins' },
+      { id: 7, nome: 'Gabriela Alves' },
+      { id: 8, nome: 'Henrique Santos' },
+    ],
+  },
+];
