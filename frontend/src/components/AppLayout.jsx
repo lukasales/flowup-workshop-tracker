@@ -1,4 +1,6 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { USE_MOCKS } from '../services/sourceConfig';
+import { isAuthenticated, logout } from '../services/authService';
 
 const navItems = [
   { label: 'Dashboard', to: '/' },
@@ -7,6 +9,13 @@ const navItems = [
 ];
 
 export default function AppLayout() {
+  const navigate = useNavigate();
+
+  function handleLogout() {
+    logout();
+    navigate('/login');
+  }
+
   return (
     <div className="app-shell">
       <header className="topbar">
@@ -19,18 +28,26 @@ export default function AppLayout() {
             </div>
           </div>
 
-          <nav className="main-nav" aria-label="Navegação principal">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                end={item.to === '/'}
-                className={({ isActive }) => `nav-link ${isActive ? 'nav-link--active' : ''}`}
-              >
-                {item.label}
-              </NavLink>
-            ))}
-          </nav>
+          <div className="topbar__actions">
+            <nav className="main-nav" aria-label="Navegação principal">
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.to}
+                  to={item.to}
+                  end={item.to === '/'}
+                  className={({ isActive }) => `nav-link ${isActive ? 'nav-link--active' : ''}`}
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+            </nav>
+
+            {!USE_MOCKS && isAuthenticated() ? (
+              <button type="button" className="logout-button" onClick={handleLogout}>
+                Sair
+              </button>
+            ) : null}
+          </div>
         </div>
       </header>
 

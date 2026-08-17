@@ -48,6 +48,16 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("FrontendDevelopmentPolicy", policy =>
+    {
+        policy.WithOrigins("http://localhost:5173", "http://localhost:4173")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
@@ -88,6 +98,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("FrontendDevelopmentPolicy");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
