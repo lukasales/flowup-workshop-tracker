@@ -11,7 +11,16 @@ A estratégia considera:
 - testes do frontend em ambiente jsdom para validar renderização e lógica de dados
 - ampla cobertura dos fluxos mais sensíveis, sem overengineering
 
-## 2. Testes backend implementados
+## 2. CI e validação local
+
+Além da suíte local, o projeto inclui:
+
+- workflow do GitHub Actions em `.github/workflows/ci.yml`
+- script de validação local em `scripts/validate.ps1`
+
+Esses mecanismos validam backend, frontend e build sem depender de SQL Server. O objetivo é manter a execução de desenvolvimento leve e reproduzível em qualquer ambiente que tenha .NET 8 e Node.js LTS.
+
+## 3. Testes backend implementados
 
 Os testes backend cobrem os cenários principais da API:
 
@@ -37,7 +46,7 @@ Observações:
 - A configuração de JWT e autenticação é aplicada por configuração de teste.
 - Os testes não dependem da ordem de execução.
 
-## 3. Testes frontend implementados
+## 4. Testes frontend implementados
 
 Os testes frontend focam na lógica central do app sem testar CSS pixelado nem detalhes internos de SVG:
 
@@ -53,7 +62,7 @@ Os testes frontend focam na lógica central do app sem testar CSS pixelado nem d
 4. authService
    - Verifica que o login válido salva o token no localStorage.
 
-## 4. Testes manuais recomendados
+## 5. Testes manuais recomendados
 
 Além da suíte automatizada, vale validar manualmente:
 
@@ -65,7 +74,7 @@ Além da suíte automatizada, vale validar manualmente:
 - Swagger com autenticação Bearer
 - comportamento de sessão expirada e redirecionamento para login
 
-## 5. Comandos de validação
+## 6. Comandos de validação
 
 Backend:
 
@@ -93,14 +102,14 @@ Build do backend (opcional, quando necessário):
 dotnet build backend/FlowUp.Workshops.sln --nologo
 ```
 
-## 6. Limitações conscientes da suíte
+## 7. Limitações conscientes da suíte
 
 - A suíte é mínima e focada em comportamento crítico, não em toda cobertura possível do produto.
 - Não há testes de interface complexa de gráficos com Recharts, e isso é intencional.
 - Não há testes de deploy nem de integração com infra externa.
 - A suíte valida a plataforma local e a entrega funcional principal, sem overengineering de infra ou arquitetura de testes.
 
-## 7. Estado atual
+## 8. Estado atual
 
 - Backend: 5 testes aprovados
 - Frontend: 5 testes aprovados

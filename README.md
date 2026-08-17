@@ -35,14 +35,65 @@ O FlowUp Workshops Tracker é uma solução full-stack para acompanhar a partici
 - Visualização de dados por colaborador e por workshop
 - Estrutura pronta para validar manualmente fluxo real e fluxo mock
 
-## 4. Stack utilizada
+## 4. Avaliação rápida
 
-- Backend: ASP.NET Core Web API, .NET 8, EF Core, SQLite, JWT, Swagger
+### Backend local
+
+```bash
+dotnet run --project backend/src/FlowUp.Workshops.Api --urls "http://localhost:5000"
+```
+
+### Frontend em modo mock
+
+```bash
+cd frontend
+npm install
+VITE_USE_MOCKS=true npm run dev -- --host 0.0.0.0
+```
+
+### Frontend em modo API real
+
+```bash
+cd frontend
+VITE_USE_MOCKS=false npm run dev -- --host 0.0.0.0 --port 4173
+```
+
+### Login padrão
+
+```text
+admin / admin123
+```
+
+### Swagger
+
+```text
+http://localhost:5000/swagger
+```
+
+### Validação rápida
+
+```bash
+dotnet test backend/FlowUp.Workshops.sln --nologo
+cd frontend
+npm test -- --run
+npm run build
+```
+
+### Script local de validação
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ./scripts/validate.ps1
+```
+
+## 5. Stack utilizada
+
+- Backend: ASP.NET Core Web API, .NET 8, EF Core, SQLite, SQL Server opcional, JWT, Swagger
 - Frontend: React + Vite + JavaScript
 - Visualização: Recharts
 - Testes: xUnit + ASP.NET Core Testing + Vitest + Testing Library
+- CI: GitHub Actions
 
-## 5. Estrutura de pastas
+## 6. Estrutura de pastas
 
 ```text
 backend/
@@ -74,7 +125,7 @@ docs/
 README.md
 ```
 
-## 6. Como rodar o backend
+## 7. Como rodar o backend
 
 A partir da raiz do projeto:
 
@@ -82,9 +133,66 @@ A partir da raiz do projeto:
 dotnet run --project backend/src/FlowUp.Workshops.Api --urls "http://localhost:5000"
 ```
 
-Em desenvolvimento, a API usa SQLite local em arquivo. O banco é criado automaticamente pela aplicação, e o seed inicial é executado ao iniciar a aplicação no ambiente de desenvolvimento.
+Em desenvolvimento, a API usa SQLite local em arquivo como padrão. O banco é criado automaticamente pela aplicação, e o seed inicial é executado ao iniciar a aplicação no ambiente de desenvolvimento.
 
-## 7. Como rodar o frontend em modo mock
+## 8. Banco de dados
+
+### SQLite local (padrão)
+
+O SQLite continua sendo a opção recomendada para execução local leve e rápida. O projeto já usa a configuração padrão em `appsettings.Development.json`:
+
+```json
+{
+  "DatabaseProvider": "Sqlite",
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=D:\\desafio\\flowup-workshops-dev.db"
+  }
+}
+```
+
+Essa opção exige apenas o runtime da aplicação e funciona sem dependência extra de banco relacional.
+
+### SQL Server opcional
+
+O SQL Server foi preparado como opção complementar, alinhada ao bônus do desafio, sem tornar esse banco obrigatório no desenvolvimento local. O suporte já existe no `Program.cs` via `DatabaseProvider = "SqlServer"` e o exemplo de configuração está em:
+
+- `backend/src/FlowUp.Workshops.Api/appsettings.SqlServer.example.json`
+- `docker-compose.sqlserver.yml`
+
+Para usar SQL Server localmente:
+
+1. subir o contêiner:
+
+```bash
+docker compose -f docker-compose.sqlserver.yml up -d
+```
+
+2. configurar a aplicação para SQL Server:
+
+```json
+{
+  "DatabaseProvider": "SqlServer",
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=localhost,1433;Database=FlowUpWorkshopsDb;User Id=sa;Password=Your_strong_password123;TrustServerCertificate=True"
+  }
+}
+```
+
+3. rodar a API:
+
+```bash
+dotnet run --project backend/src/FlowUp.Workshops.Api --urls "http://localhost:5000"
+```
+
+> Observação importante: as migrations iniciais do projeto foram criadas com foco em SQLite. Para evitar uma refatoração invasiva de provider, a rota segura e transparente mantida foi continuar com SQLite como padrão e documentar o SQL Server como opção operacional preparada para o desafio; a criação do schema em runtime continua sendo o caminho seguro para essa configuração local.
+
+### Comando de validação local
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ./scripts/validate.ps1
+```
+
+## 9. Como rodar o frontend em modo mock
 
 A partir da pasta frontend:
 
@@ -111,7 +219,7 @@ O frontend real assume que a API está disponível em:
 http://localhost:5000/api
 ```
 
-## 9. Credenciais de desenvolvimento
+## 10. Credenciais de desenvolvimento
 
 Usuário e senha padrão para login da API local:
 
@@ -119,7 +227,7 @@ Usuário e senha padrão para login da API local:
 admin / admin123
 ```
 
-## 10. Como acessar Swagger
+## 11. Como acessar Swagger
 
 Com o backend rodando, abra:
 
@@ -129,7 +237,7 @@ http://localhost:5000/swagger
 
 No Swagger, use a autorização Bearer para testar endpoints protegidos.
 
-## 11. Como rodar testes backend
+## 12. Como rodar testes backend
 
 Na raiz do projeto:
 
@@ -139,7 +247,7 @@ dotnet test backend/FlowUp.Workshops.sln --nologo
 
 Os testes backend cobrem autenticação, autorização, colaboradores, workshops e duplicidade de participação.
 
-## 12. Como rodar testes frontend
+## 13. Como rodar testes frontend
 
 Na pasta frontend:
 
@@ -154,7 +262,7 @@ Também é possível rodar:
 npm run test:run
 ```
 
-## 13. Observações sobre SQLite local, .env e VITE_USE_MOCKS
+## 14. Observações sobre SQLite local, .env e VITE_USE_MOCKS
 
 - O backend utiliza SQLite local em desenvolvimento para facilitar execução sem dependência de SQL Server.
 - O arquivo de dados do SQLite fica no ambiente local do projeto e é gerenciado automaticamente pelo EF Core.
@@ -163,13 +271,13 @@ npm run test:run
 - Quando `VITE_USE_MOCKS=false`, o app exige autenticação e chama a API real.
 - O ambiente local do frontend pode ser configurado em `.env` ou via variável de ambiente no shell.
 
-## 14. Limitações conscientes
+## 15. Limitações conscientes
 
 - Não há deploy configurado neste repositório.
 - O frontend não foi implementado com CRUD visual completo; o objetivo foi entregar uma experiência funcional com dashboard e dados de negócio relevantes.
 - A implementação prioriza qualidade e clareza sobre overengineering.
 - O projeto foi construído para execução local e validação técnica em ambiente de desenvolvimento.
 
-## 15. Resumo
+## 16. Resumo
 
 Este projeto entrega uma solução coerente para rastrear participação em workshops, com backend autenticado, dados estruturados, UI reativa e suporte a execução em modo mock ou real. A proposta foi equilibrar funcionalidade, simplicidade e facilidade de execução local, sem introduzir camadas ou abstrações extras desnecessárias.
