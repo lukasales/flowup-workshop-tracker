@@ -135,7 +135,39 @@ dotnet run --project backend/src/FlowUp.Workshops.Api --urls "http://localhost:5
 
 Em desenvolvimento, a API usa SQLite local em arquivo como padrão. O banco é criado automaticamente pela aplicação, e o seed inicial é executado ao iniciar a aplicação no ambiente de desenvolvimento.
 
-## 8. Banco de dados
+## 8. Como rodar o frontend em cada modo
+
+### Modo mock (sem backend / sem login)
+
+```bash
+cd frontend
+npm run dev:mock
+```
+
+Esse modo usa `VITE_USE_MOCKS=true` e não exige login. O acesso a `/login` mostra uma mensagem avisando que o login foi desativado para esse ambiente de avaliação leve.
+
+### Modo API real (com backend e login)
+
+```bash
+cd frontend
+npm run dev:api
+```
+
+Esse modo usa `VITE_USE_MOCKS=false` e exige que o backend esteja em execução em:
+
+```text
+http://localhost:5000
+```
+
+No modo API real, a autenticação é feita com credenciais de desenvolvimento:
+
+```text
+admin / admin123
+```
+
+A autenticação é administrativa e de desenvolvimento, sem criação de conta ou entidade `Usuario`.
+
+## 9. Banco de dados
 
 ### SQLite local (padrão)
 
@@ -190,33 +222,6 @@ dotnet run --project backend/src/FlowUp.Workshops.Api --urls "http://localhost:5
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File ./scripts/validate.ps1
-```
-
-## 9. Como rodar o frontend em modo mock
-
-A partir da pasta frontend:
-
-```bash
-cd frontend
-npm install
-VITE_USE_MOCKS=true npm run dev -- --host 0.0.0.0
-```
-
-No modo mock, o frontend não faz chamadas HTTP reais e pode ser usado sem a API em execução.
-
-## 8. Como rodar o frontend em modo API real
-
-A partir da pasta frontend:
-
-```bash
-cd frontend
-VITE_USE_MOCKS=false npm run dev -- --host 0.0.0.0 --port 4173
-```
-
-O frontend real assume que a API está disponível em:
-
-```text
-http://localhost:5000/api
 ```
 
 ## 10. Credenciais de desenvolvimento

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
-import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { login, isAuthenticated } from '../services/authService';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { login } from '../services/authService';
 import { USE_MOCKS } from '../services/sourceConfig';
 
 export default function LoginPage() {
@@ -15,7 +15,26 @@ export default function LoginPage() {
   const reason = useMemo(() => new URLSearchParams(location.search).get('reason'), [location.search]);
 
   if (USE_MOCKS) {
-    return <Navigate to="/" replace />;
+    return (
+      <div className="login-page">
+        <div className="login-card login-card--notice">
+          <div className="login-header">
+            <span className="brand-mark brand-mark--large" aria-label="FlowUp Workshops logo">F</span>
+            <h1>FlowUp Workshops</h1>
+            <p>Login desativado no modo mock.</p>
+          </div>
+
+          <div className="login-alert" role="alert">
+            <strong>Login desativado no modo mock.</strong>
+            <span>Para testar autenticação, rode o frontend com VITE_USE_MOCKS=false.</span>
+          </div>
+
+          <button type="button" className="login-button login-button--secondary" onClick={() => navigate('/', { replace: true })}>
+            Voltar ao dashboard
+          </button>
+        </div>
+      </div>
+    );
   }
 
   async function handleSubmit(event) {

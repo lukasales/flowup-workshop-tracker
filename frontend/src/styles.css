@@ -113,6 +113,28 @@ textarea {
   display: flex;
   align-items: center;
   gap: var(--space-4);
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.topbar__meta {
+  display: flex;
+  align-items: center;
+}
+
+.mode-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.42rem 0.7rem;
+  border-radius: 999px;
+  background: rgba(79, 70, 229, 0.06);
+  border: 1px solid rgba(79, 70, 229, 0.12);
+  color: var(--color-primary-dark);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .brand-block {
@@ -469,6 +491,10 @@ tbody tr:hover {
   padding: var(--space-6);
 }
 
+.login-card--notice {
+  width: min(520px, 100%);
+}
+
 .login-header {
   text-align: center;
   margin-bottom: var(--space-5);
@@ -536,6 +562,9 @@ tbody tr:hover {
 }
 
 .login-alert {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
   background: rgba(245, 158, 11, 0.08);
   border: 1px solid rgba(245, 158, 11, 0.2);
   color: #92400e;
@@ -557,6 +586,10 @@ tbody tr:hover {
 .login-button:hover {
   filter: brightness(1.03);
   transform: translateY(-1px);
+}
+
+.login-button--secondary {
+  width: 100%;
 }
 
 .login-button:disabled {
@@ -630,26 +663,21 @@ tbody tr:hover {
   }
 }
 
-@media (max-width: 640px) {
-  .container {
-    width: min(100% - 20px, 1180px);
-  }
-
+@media (max-width: 768px) {
   .topbar__inner {
     flex-direction: column;
-    justify-content: center;
+    align-items: stretch;
     padding: var(--space-4) 0;
+  }
+
+  .brand-block {
+    justify-content: center;
   }
 
   .topbar__actions {
     width: 100%;
     justify-content: center;
     flex-direction: column;
-  }
-
-  .brand-block {
-    width: 100%;
-    justify-content: center;
   }
 
   .main-nav {
@@ -659,6 +687,12 @@ tbody tr:hover {
 
   .nav-link {
     padding: 0.62rem 0.8rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: min(100% - 20px, 1180px);
   }
 
   .page-header h1 {
@@ -682,5 +716,47 @@ tbody tr:hover {
 
   .login-card {
     padding: var(--space-5);
+  }
+
+  .brand-name {
+    font-size: 0.96rem;
+  }
+
+  .brand-subtitle {
+    font-size: 0.68rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar__meta {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .main-nav {
+    width: 100%;
+  }
+
+  .nav-link {
+    flex: 1 1 calc(50% - 0.5rem);
+    text-align: center;
+  }
+
+  .login-card,
+  .card-panel,
+  .chart-card,
+  .detail-card,
+  .stat-card {
+    border-radius: 18px;
+  }
+
+  .login-header p,
+  .page-header__description {
+    font-size: 0.92rem;
+  }
+
+  .chip {
+    width: 100%;
+    justify-content: center;
   }
 }

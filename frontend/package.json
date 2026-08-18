@@ -7,6 +7,8 @@
     "test": "vitest",
     "test:run": "vitest run",
     "dev": "vite",
+    "dev:mock": "vite --host localhost --port 5173 --strictPort --mode mock",
+    "dev:api": "vite --host localhost --port 5173 --strictPort --mode api",
     "build": "vite build",
     "preview": "vite preview"
   },

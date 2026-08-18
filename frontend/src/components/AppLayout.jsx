@@ -10,6 +10,7 @@ const navItems = [
 
 export default function AppLayout() {
   const navigate = useNavigate();
+  const modeLabel = USE_MOCKS ? 'Modo mock' : 'API real';
 
   function handleLogout() {
     logout();
@@ -29,6 +30,10 @@ export default function AppLayout() {
           </div>
 
           <div className="topbar__actions">
+            <div className="topbar__meta">
+              <span className="mode-badge">{modeLabel}</span>
+            </div>
+
             <nav className="main-nav" aria-label="Navegação principal">
               {navItems.map((item) => (
                 <NavLink

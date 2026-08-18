@@ -19,6 +19,8 @@ coverage/
 .env.*
 !.env.example
 !frontend/.env.example
+!frontend/.env.mock
+!frontend/.env.api
 
 # Caches locais no D
 .nuget/
