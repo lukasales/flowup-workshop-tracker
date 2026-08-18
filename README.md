@@ -48,20 +48,23 @@ dotnet run --project backend/src/FlowUp.Workshops.Api --urls "http://localhost:5
 ```bash
 cd frontend
 npm install
-VITE_USE_MOCKS=true npm run dev -- --host 0.0.0.0
+npm run dev:mock
 ```
 
 ### Frontend em modo API real
 
 ```bash
 cd frontend
-VITE_USE_MOCKS=false npm run dev -- --host 0.0.0.0 --port 4173
+npm install
+npm run dev:api
 ```
 
-### Login padrão
+> Requer que o backend esteja rodando em http://localhost:5000.
+
+### URL do frontend
 
 ```text
-admin / admin123
+http://localhost:5173
 ```
 
 ### Swagger
@@ -70,16 +73,13 @@ admin / admin123
 http://localhost:5000/swagger
 ```
 
-### Validação rápida
+### Login padrão
 
-```bash
-dotnet test backend/FlowUp.Workshops.sln --nologo
-cd frontend
-npm test -- --run
-npm run build
+```text
+admin / admin123
 ```
 
-### Script local de validação
+### Validação local
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File ./scripts/validate.ps1
